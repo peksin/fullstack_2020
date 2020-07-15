@@ -41,6 +41,8 @@ const Total = (props) => {
 }
 
 const App = () => {
+  
+  // koko homma yhtena oliona
   const course = {
     name: 'Half Stack application development',
     parts: [
