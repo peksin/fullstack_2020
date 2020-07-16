@@ -5,6 +5,7 @@ const Course = ({ course }) => {
     <>
     <Header course={course}/>
     <Content course={course}/>
+    <Total course={course}/>
     </>
   )
 }
@@ -35,7 +36,17 @@ const Part = ({ part }) => {
           {part.name} {part.exercises} <br/>
       </>
     )
-  }
+}
 
+const Total = ({ course }) => {
+  const reducer = (accumulator, currentValue) => accumulator + currentValue
+  const exercises = course.parts.map(part => part.exercises)
+  let total = exercises.reduce(reducer)
+  return (
+    <>
+      <strong>total of {total} exercises </strong>
+    </>
+  )
+}
 
 export default Course
