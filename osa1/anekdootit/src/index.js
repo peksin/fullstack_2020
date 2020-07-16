@@ -10,6 +10,21 @@ const Button = ({ onClick, text }) => {
   )
 }
 
+const MostVotes = ({ anecdotes, votes }) => {
+  // etsii suurimman aanimaaran sijainnin
+  const mostVotes = votes.indexOf(Math.max(...votes))
+
+  return (
+    <>
+      <h1>
+        Anecdote with most votes
+      </h1>
+      {anecdotes[mostVotes]} <br/>
+      has {votes[mostVotes]} votes
+    </>
+  )
+}
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array.apply(null, new Array(anecdotes.length))
@@ -27,12 +42,14 @@ const App = (props) => {
 
   return (
     <div>
-      <h3>
+      <h1>
+        Anecdote of the day
+      </h1>
       {props.anecdotes[selected]} <br/>
-      has {votes[selected]} votes
-      </h3>
+      has {votes[selected]} votes <br/>
       <Button onClick={handleVote} text='vote' />
       <Button onClick={handleNext} text='next anecdote' />
+      <MostVotes anecdotes={anecdotes} votes={votes}/>
     </div>
   )
 }
