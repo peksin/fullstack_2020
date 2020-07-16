@@ -8,8 +8,21 @@ const Statistics = (props) => {
   const bad = props.bad
   const all = good + neutral + bad
 
+  if (all === 0) {
+    return (
+      <div>
+        <h1>statistics</h1>
+        no feedback given<br/>
+      </div>
+    )
+  }
+
   return (
     <div>
+      <h1>statistics</h1>
+      good {good}<br/>
+      neutral {neutral}<br/>
+      bad {bad}<br/>
       all {good + neutral + bad} <br/>
       average {(good + -1 * bad) / all} <br/>
       positive {good / all * 100} %
@@ -22,7 +35,6 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-  const [all, setAll] = useState(0)
 
   // hyva palaute
   const handleGoodClick = () => { 
@@ -45,10 +57,6 @@ const App = () => {
       <button onClick={handleGoodClick}>good</button>
       <button onClick={handleNeutralClick}>neutral</button>
       <button onClick={handleBadClick}>bad</button>
-      <h1>statistics</h1>
-      good {good}<br/>
-      neutral {neutral}<br/>
-      bad {bad}<br/>
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
