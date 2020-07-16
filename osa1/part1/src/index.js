@@ -1,37 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Hello = ({ name, age }) => {
-  const bornYear = () => new Date().getFullYear() - age
+
+const Display = ({ counter }) => <div>{counter}</div>
+
+const Button = ({ handleClick, text }) => (
+    <button onClick={handleClick}>
+      {text}
+    </button>
+  )
+
+const App = (props) => {
+  // paluuarvon taulukko otetaan talteen counteriin ja setCounteriin
+  const [ counter, setCounter ] = useState(0)
+
+  // tilaa muuttava funktio kuten setCounter aiheuttaa automaattisesti 
+  // komponentin uudelleenrenderoinnin
+  const increaseByOne = () => setCounter(counter + 1)
+  const decreaseByOne = () => setCounter(counter - 1)
+  const setToZero = () => setCounter(0)
 
   return (
     <div>
-      <p>
-        Hello {name}, you are {age} years old
-      </p>
-      <p>So you were probably born {bornYear()}</p>
+      <Display counter={counter}/>
+      <Button
+        handleClick={increaseByOne}
+        text='plus'
+      />
+      <Button
+        handleClick={setToZero}
+        text='zero'
+      />
+      <Button
+        handleClick={decreaseByOne}
+        text='minus'
+      />
     </div>
   )
 }
 
-const App = (props) => {
-  const { counter } = props
-  return (
-    <div>{counter}</div>
-  )
-}
-
-let counter = 1
-
-const refresh = () => {
-  ReactDOM.render(
-    <App counter={counter} />, 
-    document.getElementById('root')
-  )
-}
-
-// intervalliksi asettuu 1000 ms
-setInterval(() => {
-  refresh()
-  counter += 1
-}, 1000)
+ReactDOM.render(
+  <App />, 
+  document.getElementById('root')
+)
