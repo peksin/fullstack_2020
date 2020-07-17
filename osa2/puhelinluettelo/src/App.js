@@ -14,10 +14,12 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState('')
 
+  // kasittelee vain lomakkeen kentan muutosta
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
 
+  // hoitaa puhelinnumeorn lisayksen
   const addName = (event) => {
     event.preventDefault()
     // luodaan olio uutta puhelinnumeroa varten
@@ -25,7 +27,12 @@ const App = () => {
       name: newName
     }
 
-    setPersons(persons.concat(nameObject))
+    // etsitaan annettua nimea jo tallennetuista
+    const nimet = persons.map(person => person.name)
+    nimet.findIndex((string) => string === newName) === -1
+    ? setPersons(persons.concat(nameObject))
+    : window.alert(`${newName} is already added to phonebook`)
+
     setNewName('')
   }
 
