@@ -3,28 +3,35 @@ import React, { useState } from 'react'
 const Person = ({ person }) => {
   return (
     <>
-      {person.name} <br/>
+      {person.name} {person.number} <br/>
     </>
   )
 }
 
 const App = () => {
   const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas',
+      number: '040-1231244' }
   ]) 
   const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
 
   // kasittelee vain lomakkeen kentan muutosta
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
 
-  // hoitaa puhelinnumeorn lisayksen
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
+  // hoitaa puhelinnumeron lisayksen
   const addName = (event) => {
     event.preventDefault()
     // luodaan olio uutta puhelinnumeroa varten
     const nameObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     // etsitaan annettua nimea jo tallennetuista
@@ -44,6 +51,11 @@ const App = () => {
           name: <input 
             value={newName}
             onChange={handleNameChange}/>
+        </div>
+        <div>
+          number: <input
+            value={newNumber}
+            onChange={handleNumberChange}/>
         </div>
         <div>
           <button type="submit">add</button>
