@@ -35,8 +35,8 @@ const App = () => {
       <form onSubmit={addName}>
         <div>
           name: <input 
-                  value={newName}
-                  onChange={handleNameChange}/>
+            value={newName}
+            onChange={handleNameChange}/>
         </div>
         <div>
           <button type="submit">add</button>
@@ -44,7 +44,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
         {persons.map((person) => 
-          <Person person={person} />)}
+          <Person key={person.name} person={person} />)}
     </div>
   )
 
