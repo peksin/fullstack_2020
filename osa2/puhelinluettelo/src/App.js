@@ -18,6 +18,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
+  const [ showAll, setShowAll ] = useState(true)
 
   // kasittelee vain lomakkeen kentan muutosta
   const handleNameChange = (event) => {
@@ -29,6 +30,7 @@ const App = () => {
   }
 
   const handleNewFilter = (event) => {
+    setShowAll(false)
     setNewFilter(event.target.value)
   }
 
@@ -50,6 +52,10 @@ const App = () => {
     setNewName('')
     setNewNumber('')
   }
+
+  const personsToShow = showAll
+    ? persons
+    : persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
   return (
     <div>
@@ -79,7 +85,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-        {persons.map((person) => 
+        {personsToShow.map((person) => 
           <Person key={person.name} person={person} />)}
     </div>
   )
