@@ -1,0 +1,6 @@
+npx create-react-app nimi_tahan
+npx json-server --port=3001 --watch db.json
+npm start
+npm install axios --save
+npm install json-server --save-dev
+npm run server

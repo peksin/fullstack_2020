@@ -1,10 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Note from './components/Note'
 
 const App = (props) => {
   const [notes, setNotes] = useState(props.notes)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
+
+  const hook = () => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/notes')
+      .then(response => {
+        console.log('promise fulfilled')
+        setNotes(response.data)
+      })
+  }
+  
+  // toisena parametrina tyhja taulukko, eli efekti suoritetaan vain 
+  // komponentin ensimmaisen renderoinnin jalkeen
+  useEffect(hook, [])
 
   // tapahtumankasittelija onSubmitille
   const addNote = (event) => {

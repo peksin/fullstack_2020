@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 
 // Yksi yhteystieto
@@ -65,16 +66,23 @@ const PersonForm = ({addName, newName, handleNameChange, newNumber, handleNumber
 
 // Juurikomponentti
 const App = () => {
-  const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ]) 
+  const [ persons, setPersons] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   const [ showAll, setShowAll ] = useState(true)
+
+  const hook = () => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('Hakee tietokannasta...')
+        console.log(response.data)
+        setPersons(response.data)
+      })
+  }
+
+  useEffect(hook, [])
 
   // kasittelee vain lomakkeen kentan muutosta
   const handleNameChange = (event) => {
