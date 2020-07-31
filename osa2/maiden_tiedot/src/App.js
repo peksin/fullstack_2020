@@ -4,7 +4,30 @@ import axios from 'axios'
 //
 // Yksittainen maa
 //
-const Country = ({ country }) => {
+const Country = ({ country, props }) => {
+  const [weather, setWeather] = useState([])
+  const api_key = process.env.REACT_APP_API_KEY
+  const get_request = "http://api.weatherstack.com/current?access_key=" 
+    + api_key 
+    + "&query="
+    + country.capital
+
+  // en osannut ilman tammoista laittaa sivua renderoimaan vasta kun requesti on valmis...
+  const [isLoaded, setLoaded] = useState(false)
+
+
+   // haetaan saatiedot
+   useEffect(() => {
+    console.log('effect')
+    axios
+      .get(get_request)
+      .then(response => {
+        console.log(response.data)
+        setWeather(response.data)
+        setLoaded(!isLoaded)
+      })
+  }, [])
+
   return (
     <>
       <h1>{country.name}</h1>
@@ -23,6 +46,12 @@ const Country = ({ country }) => {
       </div>
 
       <h2>Weather in {country.capital}</h2>
+      <div>
+        <b>temperature:</b> {isLoaded && weather.current.temperature} Celsius<br/>
+        <img src={isLoaded && weather.current.weather_icons} height="50"></img> <br/>
+        <b>wind:</b> {isLoaded && weather.current.wind_speed} mph 
+        direction {isLoaded && weather.current.wind_dir}
+      </div>
 
     </>
   )
