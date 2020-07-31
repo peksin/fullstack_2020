@@ -17,7 +17,7 @@ const Country = ({ country, props }) => {
 
 
    // haetaan saatiedot
-   useEffect(() => {
+   const hook = () => {
     console.log('effect')
     axios
       .get(get_request)
@@ -26,7 +26,9 @@ const Country = ({ country, props }) => {
         setWeather(response.data)
         setLoaded(!isLoaded)
       })
-  }, [])
+  }
+
+  useEffect(hook, [])
 
   return (
     <>
@@ -48,7 +50,7 @@ const Country = ({ country, props }) => {
       <h2>Weather in {country.capital}</h2>
       <div>
         <b>temperature:</b> {isLoaded && weather.current.temperature} Celsius<br/>
-        <img src={isLoaded && weather.current.weather_icons} height="50"></img> <br/>
+        <img src={isLoaded ? weather.current.weather_icons : undefined} alt="flag" height="50"></img> <br/>
         <b>wind:</b> {isLoaded && weather.current.wind_speed} mph 
         direction {isLoaded && weather.current.wind_dir}
       </div>
