@@ -10,7 +10,7 @@ const Country = ({ country }) => {
       <h1>{country.name}</h1>
       capital {country.capital} <br/>
       population {country.population}
-      <h2>languages</h2>
+      <h2>Languages</h2>
       <div>
         {country.languages.map((language) => 
           <li key={language.iso639_1}>{language.name}</li>)}
@@ -22,10 +22,30 @@ const Country = ({ country }) => {
   )
 }
 
+
+//
+// Maan nimi show-napin kanssa
+//
+const CountryShow = ({ country }) => {
+  const [showCountryInfo, setCountryInfo] = useState(false)
+
+  return (
+    <>
+     <div key={country.name}>{country.name}
+     <button onClick={() => setCountryInfo(!showCountryInfo)}>
+       show 
+     </button>
+     {showCountryInfo ? <Country country={country} /> : <></>}
+     </div>
+    </>
+  )
+}
+
+
 //
 // Lista maista
 //
-const Countries = ({ countries, newFilter}) => {
+const Countries = ({ countries, newFilter }) => {
   if (newFilter === '') { // ei ole mitaan hakusanaa niin ei nayteta mitaan
     return (
       <div></div>
@@ -51,7 +71,7 @@ const Countries = ({ countries, newFilter}) => {
 
   return ( // ei loytynyt vain yhta maata mutta ei loytynyt liikaakaan
     <div>
-      {countriesToShow.map(country => <div key={country.name}>{country.name}</div>)}
+      {countriesToShow.map(country => <CountryShow key={country.name} country={country} />)}
     </div>
   )
 }
@@ -62,6 +82,7 @@ const Countries = ({ countries, newFilter}) => {
 const App = () => {
   const [ newFilter, setNewFilter ] = useState('')
   const [ countries, setCountries ] = useState([])
+  const [ showCountryInfo, setCountryInfo ] = useState(false)
 
   // haetaan kaikki maat muistiin
   const hook = () => {
@@ -88,7 +109,8 @@ const App = () => {
             onChange={handleNewFilter} />
         </div>
       </form>
-      <Countries countries={countries} newFilter={newFilter} />
+      <Countries countries={countries} newFilter={newFilter} showCountryInfo={showCountryInfo}
+                 setCountryInfo={setCountryInfo} />
     </div>
   )
 }
