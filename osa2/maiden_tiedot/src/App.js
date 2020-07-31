@@ -8,16 +8,22 @@ const Country = ({ country }) => {
   return (
     <>
       <h1>{country.name}</h1>
+
       capital {country.capital} <br/>
       population {country.population}
+
       <h2>Languages</h2>
       <div>
         {country.languages.map((language) => 
           <li key={language.iso639_1}>{language.name}</li>)}
       </div>
+
       <div>
         <img src={country.flag} alt="Flag was supposed to be here" height="100"></img>
       </div>
+
+      <h2>Weather in {country.capital}</h2>
+
     </>
   )
 }
