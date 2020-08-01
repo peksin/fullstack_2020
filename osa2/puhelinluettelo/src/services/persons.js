@@ -20,4 +20,12 @@ const update = (id, newObject) => {
     return request.then(response => response.data) // palauttaa datan
 }
 
-export default {getAll, create, update}
+
+// DELETE-pyynto, delete ei kelvannut nimeksi syysta tai toisesta
+// krhm ja jos luki tehtavanannon loppuun niin siellahan se sanottiin
+const remove = (id) => {
+    const request = axios.delete(`${baseUrl}/${id}`)
+    return request.then(response => response.data) // palauttaa datan
+}
+
+export default {getAll, create, update, remove}

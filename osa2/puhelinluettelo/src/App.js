@@ -3,17 +3,19 @@ import personService from './services/persons'
 
 
 // Yksi yhteystieto
-const Person = ({ person }) => {
+const Person = ({ person, handleDeletePerson }) => {
   return (
     <>
-      {person.name} {person.number} <br/>
+      {person.name} {person.number} <button type="delete"
+                                            onClick={() => {handleDeletePerson(person.id, person.name)}}
+                                            >delete</button> <br/>
     </>
   )
 }
 
 
 // Kaikki yhteystiedot
-const Numbers = ({ persons, showAll, newFilter }) => {
+const Numbers = ({ persons, showAll, newFilter, handleDeletePerson }) => {
 
   const personsToShow = showAll
   ? persons
@@ -22,7 +24,7 @@ const Numbers = ({ persons, showAll, newFilter }) => {
   return (
     <>
       {personsToShow.map((person) => 
-        <Person key={person.name} person={person} />)}
+        <Person key={person.name} person={person} handleDeletePerson={handleDeletePerson}/>)}
     </>
   )
 }
@@ -98,6 +100,24 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
+  /* taitaa olla makuasia etta poistaako suoraan tietokannasta ja hakee tuoreen version vanhan
+  STATEn paalle vai poistaako nykyisesta ja POSTaa uuden version tietokantaan vanhan paalle? */
+  const handleDeletePerson = (id, name) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      personService
+      .remove(id)
+      .then(response => {
+        console.log(response)
+        personService 
+          .getAll()
+          .then(allPersons => {
+            console.log('Hakee paivitetyn version tietokannasta')
+            setPersons(allPersons)
+          })
+      })
+    }
+  }
+
   // hoitaa puhelinnumeron lisayksen
   const addName = (event) => {
     event.preventDefault()
@@ -139,7 +159,8 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-      <Numbers persons={persons} showAll={showAll} newFilter={newFilter} />
+      <Numbers persons={persons} showAll={showAll} 
+                newFilter={newFilter} handleDeletePerson={handleDeletePerson}/>
     </div>
   )
 }
