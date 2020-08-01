@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 
 
 // Yksi yhteystieto
@@ -73,12 +73,12 @@ const App = () => {
   const [ showAll, setShowAll ] = useState(true)
 
   const hook = () => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+    personService
+      .getAll()
+      .then(allPersons => {
         console.log('Hakee tietokannasta...')
-        console.log(response.data)
-        setPersons(response.data)
+        console.log(allPersons)
+        setPersons(allPersons)
       })
   }
 
@@ -110,7 +110,9 @@ const App = () => {
     // etsitaan annettua nimea jo tallennetuista
     const nimet = persons.map(person => person.name)
     nimet.findIndex((string) => string === newName) === -1
-    ? setPersons(persons.concat(nameObject))
+    ? personService.create(nameObject).then(returnedPerson => {
+      setPersons(persons.concat(returnedPerson))
+    })
     : window.alert(`${newName} is already added to phonebook`)
 
     setNewName('')
