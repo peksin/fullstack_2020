@@ -2,6 +2,19 @@ import React, { useState, useEffect } from 'react'
 import personService from './services/persons'
 
 
+const Notification = ({message}) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="notification">
+      {message}
+    </div>
+  )
+}
+
+
 // Yksi yhteystieto
 const Person = ({ person, handleDeletePerson }) => {
   return (
@@ -73,6 +86,7 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('')
   const [ newFilter, setNewFilter ] = useState('')
   const [ showAll, setShowAll ] = useState(true)
+  const [ notificationMessage, setNotificationMessage] = useState(null)
 
   const updateFromDatabase = () => {
     personService
@@ -111,6 +125,10 @@ const App = () => {
       .then(response => {
         console.log(response)
         updateFromDatabase()
+        setNotificationMessage(`Deleted ${name}`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
       })
     }
   }
@@ -130,15 +148,20 @@ const App = () => {
       // tietokannasta ei loytynyt annetun nimista
       personService.create(nameObject).then(returnedPerson => {
       setPersons(persons.concat(returnedPerson))
+      setNotificationMessage(`Added ${newName}`)
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000)
       })
-    }
-    
-    // paivitetaanko vanha numero uudella?
-    if (window.confirm(`${nameObject.name} is already added to phonebook, replace
+    } else if (window.confirm(`${nameObject.name} is already added to phonebook, replace
     the old number with a new one?`)) {
       personService
       .update(persons[nimet.findIndex((string) => string === newName)].id, nameObject)
       .then(() => updateFromDatabase())
+      setNotificationMessage(`Updated ${newName}`)
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000)
     }
     
     setNewName('')
@@ -148,6 +171,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={notificationMessage}/>
 
       <Filter 
         newFilter={newFilter} 
