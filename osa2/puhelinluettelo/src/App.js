@@ -74,7 +74,7 @@ const App = () => {
   const [ newFilter, setNewFilter ] = useState('')
   const [ showAll, setShowAll ] = useState(true)
 
-  const hook = () => {
+  const updateFromDatabase = () => {
     personService
       .getAll()
       .then(allPersons => {
@@ -84,7 +84,9 @@ const App = () => {
       })
   }
 
-  useEffect(hook, [])
+  useEffect(updateFromDatabase, [])
+
+
 
   // kasittelee vain lomakkeen kentan muutosta
   const handleNameChange = (event) => {
@@ -108,12 +110,7 @@ const App = () => {
       .remove(id)
       .then(response => {
         console.log(response)
-        personService 
-          .getAll()
-          .then(allPersons => {
-            console.log('Hakee paivitetyn version tietokannasta')
-            setPersons(allPersons)
-          })
+        updateFromDatabase()
       })
     }
   }
@@ -129,12 +126,21 @@ const App = () => {
 
     // etsitaan annettua nimea jo tallennetuista
     const nimet = persons.map(person => person.name)
-    nimet.findIndex((string) => string === newName) === -1
-    ? personService.create(nameObject).then(returnedPerson => {
+    if (nimet.findIndex((string) => string === newName) === -1) {
+      // tietokannasta ei loytynyt annetun nimista
+      personService.create(nameObject).then(returnedPerson => {
       setPersons(persons.concat(returnedPerson))
-    })
-    : window.alert(`${newName} is already added to phonebook`)
-
+      })
+    }
+    
+    // paivitetaanko vanha numero uudella?
+    if (window.confirm(`${nameObject.name} is already added to phonebook, replace
+    the old number with a new one?`)) {
+      personService
+      .update(persons[nimet.findIndex((string) => string === newName)].id, nameObject)
+      .then(() => updateFromDatabase())
+    }
+    
     setNewName('')
     setNewNumber('')
   }
