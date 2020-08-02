@@ -123,12 +123,18 @@ const App = () => {
       personService
       .remove(id)
       .then(response => {
-        console.log(response)
         updateFromDatabase()
         setNotificationMessage(`Deleted ${name}`)
         setTimeout(() => {
           setNotificationMessage(null)
         }, 5000)
+      })
+      .catch(error => {
+        setNotificationMessage(`Information of ${name} has already been removed from server`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
+        updateFromDatabase()
       })
     }
   }
@@ -157,12 +163,22 @@ const App = () => {
     the old number with a new one?`)) {
       personService
       .update(persons[nimet.findIndex((string) => string === newName)].id, nameObject)
-      .then(() => updateFromDatabase())
+      .then(() => { 
+        updateFromDatabase()
       setNotificationMessage(`Updated ${newName}`)
       setTimeout(() => {
         setNotificationMessage(null)
-      }, 5000)
+        }, 5000)
+      })
+      .catch(error => {
+        setNotificationMessage(`Information of ${newName} has already been removed from server`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
+        updateFromDatabase()
+      })
     }
+    
     
     setNewName('')
     setNewNumber('')
