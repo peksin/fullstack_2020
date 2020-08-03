@@ -4,3 +4,9 @@ npm start
 npm install axios --save
 npm install json-server --save-dev
 npm run server
+npm install express --save
+npm update
+npm install
+npm install --save-dev nodemon
+node_modules/.bin/nodemon index.js
+npm run dev kaynnistaa scripteihin maaritellyn dev-moodin
