@@ -1,8 +1,25 @@
 const express = require('express')
 const { response } = require('express')
+const cors = require('cors')
 const app = express()
 
+
+const requestLogger = (request, response, next) => {
+    console.log(`Method:`, request.method)
+    console.log(`Path:  `, request.path)
+    console.log(`Body:  `, request.body)
+    console.log(`----------`)
+    next()
+}
+
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({error: 'unknown endpoint'})
+}
+
+// middlewaret kayttoon
+app.use(cors())
 app.use(express.json())
+app.use(requestLogger)
 
 let notes = [
     {
@@ -33,6 +50,10 @@ const generateId = () => {
         : 0
     return maxId + 1
 }
+
+/*==========================
+ * Routet tanne
+ *=========================*/
 
 app.post('/api/notes', (request, response) => {
     const body = request.body
@@ -81,6 +102,11 @@ app.delete('/api/notes/:id', (request, response) => {
     response.status(204).end()
 })
 
+// Tama middleware tanne jotta se tulee kayttoon vasta jos HTTP-pyynto
+// ei mennyt millekaan routelle hoitoon
+app.use(unknownEndpoint)
+
+// Palvelin kayntiin
 const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`)
