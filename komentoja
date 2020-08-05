@@ -10,3 +10,9 @@ npm install
 npm install --save-dev nodemon
 node_modules/.bin/nodemon index.js
 npm run dev kaynnistaa scripteihin maaritellyn dev-moodin
+heroku logs -t
+npm run build
+kopioidaan buildi backendin juureen
+cp -r build ../../osa3/notes_backend
+git push heroku master
+npm run deploy:full
