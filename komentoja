@@ -17,3 +17,4 @@ cp -r build ../../osa3/notes_backend
 git push heroku master
 npm run deploy:full
 npm install mongoose --save
+npm install dotenv --save
