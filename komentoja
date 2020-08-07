@@ -18,3 +18,4 @@ git push heroku master
 npm run deploy:full
 npm install mongoose --save
 npm install dotenv --save
+npm install mongoose-unique-validator

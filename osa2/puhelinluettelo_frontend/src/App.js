@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react'
 import personService from './services/persons'
 
 
-const Notification = ({message}) => {
+const Notification = ({message, color}) => {
   if (message === null) {
     return null
   }
 
   return (
-    <div className="notification">
+    <div className="notification" style={{color:`${color}`}}>
       {message}
     </div>
   )
 }
-
 
 // Yksi yhteystieto
 const Person = ({ person, handleDeletePerson }) => {
@@ -87,6 +86,7 @@ const App = () => {
   const [ newFilter, setNewFilter ] = useState('')
   const [ showAll, setShowAll ] = useState(true)
   const [ notificationMessage, setNotificationMessage] = useState(null)
+  const [ notificationColor, setNotificationColor] = useState(null)
 
   const updateFromDatabase = () => {
     personService
@@ -125,12 +125,14 @@ const App = () => {
       .then(response => {
         updateFromDatabase()
         setNotificationMessage(`Deleted ${name}`)
+        setNotificationColor('green')
         setTimeout(() => {
           setNotificationMessage(null)
         }, 5000)
       })
       .catch(error => {
         setNotificationMessage(`Information of ${name} has already been removed from server`)
+        setNotificationColor('red')
         setTimeout(() => {
           setNotificationMessage(null)
         }, 5000)
@@ -155,9 +157,20 @@ const App = () => {
       personService.create(nameObject).then(returnedPerson => {
       setPersons(persons.concat(returnedPerson))
       setNotificationMessage(`Added ${newName}`)
+      setNotificationColor('green')
       setTimeout(() => {
         setNotificationMessage(null)
       }, 5000)
+      })
+      .catch(error => {
+        // mongoosen validointierrori ruutuun
+        console.log(`${error.response.data}`)
+        const errorMsg = error.response.data.error.toString()
+        setNotificationMessage(`${errorMsg}`)
+        setNotificationColor('red')
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
       })
     } else if (window.confirm(`${nameObject.name} is already added to phonebook, replace
     the old number with a new one?`)) {
@@ -166,12 +179,15 @@ const App = () => {
       .then(() => { 
         updateFromDatabase()
       setNotificationMessage(`Updated ${newName}`)
+      setNotificationColor('green')
       setTimeout(() => {
         setNotificationMessage(null)
         }, 5000)
       })
       .catch(error => {
-        setNotificationMessage(`Information of ${newName} has already been removed from server`)
+        const errorMsg = error.response.data.error.toString()
+        setNotificationMessage(`${errorMsg}`)
+        setNotificationColor('red')
         setTimeout(() => {
           setNotificationMessage(null)
         }, 5000)
@@ -188,7 +204,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={notificationMessage}/>
+      <Notification message={notificationMessage} color={notificationColor}/>
 
       <Filter 
         newFilter={newFilter} 
