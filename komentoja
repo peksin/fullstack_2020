@@ -20,3 +20,7 @@ npm install mongoose --save
 npm install dotenv --save
 npm install mongoose-unique-validator
 heroku config:set ENV_VAR=xxxxxx
+npm install eslint --save-dev
+node_modules/.bin/eslint --init
+node_modules/.bin/eslint index.js jos haluaa tarkastaa indexin. . kaikki
+.eslintignoreen mita et halua tarkastettavan
