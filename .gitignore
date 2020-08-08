@@ -3,3 +3,5 @@
 omat
 /osa3/notes_backend
 /osa3/fullstack_puhelinluettelo_backend
+.env
+/osa4/blogilista_backend/node_modules
