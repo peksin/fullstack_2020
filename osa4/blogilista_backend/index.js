@@ -4,6 +4,8 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 
+require('dotenv').config()
+
 const blogSchema = mongoose.Schema({
   title: String,
   author: String,
@@ -13,7 +15,11 @@ const blogSchema = mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-const mongoUrl = 'mongodb://localhost/bloglist'
+// ymparistomuuttujat
+let PORT = process.env.PORT
+let MONGODB_URI = process.env.MONGODB_URI
+
+const mongoUrl = MONGODB_URI
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true})
 
 app.use(cors())
@@ -37,7 +43,7 @@ app.post('/api/blogs', (request, response) => {
     })
 })
 
-const PORT = 3003
+// const PORT = 3003
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
