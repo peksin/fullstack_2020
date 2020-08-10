@@ -25,6 +25,8 @@ const favoriteBlog = (blogs) => {
 }
 
 const mostBlogs = (blogs) => {
+  if (blogs.length === 0) return {author: '', blogs: 0}
+
   const amountOfBlogsByAuthor = _.countBy(blogs.map(blog => blog.author), blogs.author)
   const entries = _.entries(amountOfBlogsByAuthor)
   const authorWithMostBlogs = _.maxBy(entries, _.last)
@@ -34,9 +36,34 @@ const mostBlogs = (blogs) => {
   }
 }
 
+const mostLikes = (blogs) => {
+  if (!blogs) return {author: '', likes: 0}
+  // blogit ryhmiin kirjailijan mukaan
+  const blogsByAuthor = _.groupBy(blogs, 'author')
+
+  let mostLikes = 0
+  let mostLikedAuthor = ''
+
+  for (let author in blogsByAuthor) {
+    const likes = totalLikes(blogsByAuthor[author])
+    if (likes > mostLikes) {
+      mostLikes = likes
+      mostLikedAuthor = author
+    }
+  }
+
+  const result = {
+    author: mostLikedAuthor,
+    likes: mostLikes
+  }
+
+  return result
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 }
