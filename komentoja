@@ -24,3 +24,5 @@ npm install eslint --save-dev
 node_modules/.bin/eslint --init
 node_modules/.bin/eslint index.js jos haluaa tarkastaa indexin. . kaikki
 .eslintignoreen mita et halua tarkastettavan
+npm install --save-dev jest
+npm install lodash --save
