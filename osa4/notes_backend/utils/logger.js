@@ -2,7 +2,7 @@ const info = (...params) => {
     console.log(...params)
 }
 
-const erro = (...params) => {
+const error = (...params) => {
     console.error(...params)
 }
 
