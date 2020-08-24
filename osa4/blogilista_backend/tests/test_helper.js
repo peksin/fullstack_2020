@@ -1,5 +1,4 @@
 const Blog = require('../models/blog')
-const note = require('../../notes_backend/models/note')
 
 const initialBlogs = [
   {
