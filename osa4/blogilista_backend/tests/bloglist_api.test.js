@@ -19,6 +19,14 @@ test('the right amount of JSON-blogs is returned', async () => {
   console.log(`got ${response.body.length} blogs`)
 })
 
+test('id-field of returned blogs is actually id, not _id', async () => {
+  const response = await api.get('/api/blogs')
+  const contents = response.body.map(r => r.id)
+  console.log(contents)
+  expect(contents).toBeDefined()
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
+
