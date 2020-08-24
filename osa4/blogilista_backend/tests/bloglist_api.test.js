@@ -65,6 +65,23 @@ test('if no value is given to likes, it will be 0', async () => {
   expect(response.body.likes).toEqual(0)
 })
 
+test('title and/or url empty => 400 Bad Request', async () => {
+  let newBlog = {
+    _id: "5a421aa71q54a676234d17f8",
+    title: "testiblogi",
+    author: "Edsger W. Testaaja",
+    url: "http://www.fi",
+    __v: 0
+  }
+
+  let response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+  
+  expect(response.body).toContain('400 Bad Request')
+
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
