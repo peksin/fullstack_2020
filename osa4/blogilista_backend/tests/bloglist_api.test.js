@@ -107,7 +107,18 @@ test('title and/or url empty => 400 Bad Request', async () => {
   .send(newBlog)
 
   expect(response.status).toEqual(400)
+})
 
+test('deleting blog by id works', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToDelete = blogsAtStart[0]
+  await api 
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+  
+  const blogsAtEnd = await helper.blogsInDb()
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+  expect(blogsAtEnd).not.toContain('React patterns')
 })
 
 afterAll(() => {
