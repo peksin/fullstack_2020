@@ -121,6 +121,17 @@ test('deleting blog by id works', async () => {
   expect(blogsAtEnd).not.toContain('React patterns')
 })
 
+test('blog update by id works', async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  let blogToUpdate = blogsAtStart[0]
+  blogToUpdate.likes = 670
+  await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .expect(200)
+  const blogsAtEnd = await api.get('/api/blogs')
+  expect(blogsAtEnd.body[0].likes === 670)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
