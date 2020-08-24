@@ -26,3 +26,5 @@ node_modules/.bin/eslint index.js jos haluaa tarkastaa indexin. . kaikki
 .eslintignoreen mita et halua tarkastettavan
 npm install --save-dev jest
 npm install lodash --save
+npm install --save-dev supertest
+npm install express-async-errors --save
