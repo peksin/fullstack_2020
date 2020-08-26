@@ -32,3 +32,4 @@ npm install bcrypt --save
 npm install --save mongoose-unique-validator
 npm install jsonwebtoken --save
 npm test -- tests/bloglist_api.test.js
+npm test -- -t 'blogs are added correctly'

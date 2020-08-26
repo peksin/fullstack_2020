@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxvZ2ludWtrbyIsImlkIjoiNWY0NjY0NzUyMmExZjEzYzkwNDI5ZjI4IiwiaWF0IjoxNTk4NDUwNzE5fQ.IHOarGDIql3CJHz9sjJOG7mR9Wo7_ztxu-8wjL7eMus
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3Rpa2F5dHRhamEiLCJpYXQiOjE1OTg0NzAyNTJ9.TFZDe6R4xNQQhx-Tg86Vwuh6fVjieLBptE2_66aKjh8
 
 {
-    "title": "TESTINGTESTING",
+    "title": "TESTINGBLOGI",
     "author": "testiukon kaveri",
     "url": "http://www.fi",
     "likes": "175000"
