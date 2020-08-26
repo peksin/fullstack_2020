@@ -2,8 +2,9 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title": "blogin nimi",
-    "author": "blogin kirjoittaja",
-    "url": "blogin urli",
-    "likes": "blogin tykkaykset"
+    "title": "React patterns",
+    "author": "Michael Chan",
+    "url": "https://reactpatterns.com/",
+    "likes": "150",
+    "userId": "5f462d3c0a87ca185ad8de8e"
 }

@@ -12,12 +12,12 @@ const userSchema = mongoose.Schema({
   // salasanan oikeellisuus testataan kontrollerissa
   name: String,
   passwordHash: String,
-  // blogs: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Blog'
-  //   }
-  // ]
+  blogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Blog'
+    }
+  ]
 })
 
 userSchema.plugin(uniqueValidator)

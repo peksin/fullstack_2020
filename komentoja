@@ -28,3 +28,7 @@ npm install --save-dev jest
 npm install lodash --save
 npm install --save-dev supertest
 npm install express-async-errors --save
+npm install bcrypt --save
+npm install --save mongoose-unique-validator
+npm install jsonwebtoken --save
+npm test -- tests/bloglist_api.test.js
