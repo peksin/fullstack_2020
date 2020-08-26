@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3Rpa2F5dHRhamEiLCJpZCI6IjVmNDZiODZjMzM4ZjM4NjUzNDJiMjIzOSIsImlhdCI6MTU5ODQ3MDQ1Mn0.2WYzalpgKcy3LcznblAVIT374DNvX3iutqb2cTz9A1U
+
+{
+    "title": "TESTINGBLOGI",
+    "author": "testiukon kaveri",
+    "url": "http://www.fi",
+    "likes": "175000"
+}
