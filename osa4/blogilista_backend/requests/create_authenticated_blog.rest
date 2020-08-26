@@ -1,11 +1,10 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOIUzI1NiIsInR5cCI6IghjkpXVCJ9.eyJ1c2VybmFtZSI6ImxvZ2ludWtrbyIsImlkIjoiNWY0NjY0NzUyMmExZjEzYzkwNDI5ZjI4IiwiaWF0IjoxNTk4NDQ5MzU1fQ.w24k8bNmtavzc0TaTh9vGGWIOmrMxIxbF1oxyXduD0A
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxvZ2ludWtrbyIsImlkIjoiNWY0NjY0NzUyMmExZjEzYzkwNDI5ZjI4IiwiaWF0IjoxNTk4NDUwNzE5fQ.IHOarGDIql3CJHz9sjJOG7mR9Wo7_ztxu-8wjL7eMus
 
 {
-    "title": "Go To Statement Considered Harmful",
-    "author": "Edsger W. Dijkstra",
-    "url": "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
-    "likes": "5",
-    "userId": "5f462d3c0a87ca185ad8de8e" // talla ei enaa valia
+    "title": "TESTINGTESTING",
+    "author": "testiukon kaveri",
+    "url": "http://www.fi",
+    "likes": "175000"
 }
