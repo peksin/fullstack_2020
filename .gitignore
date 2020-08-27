@@ -6,3 +6,5 @@ omat
 .env
 /osa4/blogilista_backend/node_modules
 /osa5/blogilista_backend/node_modules
+/osa5/notes_backend/node_modules
+/osa5/notes_frontend/node_modules
