@@ -3,6 +3,18 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
+const Notification = ({message}) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="notification">
+      {message}
+    </div>
+  )
+}
+
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
@@ -45,7 +57,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage(`wrong credentials: ${exception}`)
+      setErrorMessage(`wrong username or password`)
       setTimeout(() => {
         setErrorMessage(null)
       }, 5000)
@@ -76,6 +88,10 @@ const App = () => {
     setNewBlogAuthor('')
     setNewBlogTitle('')
     setNewBlogUrl('')
+    setErrorMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 5000)
   }
 
 
@@ -143,7 +159,6 @@ const App = () => {
     </>
   )
 
-
   const blogList = () => (
     <div>
     <h2>blogs</h2>
@@ -161,10 +176,10 @@ const App = () => {
 
   return (
     <div>
+      <Notification message={errorMessage} />
       {user === null ?
         loginForm() :
         blogList()}
-      {errorMessage}
     </div>
   )
 }
