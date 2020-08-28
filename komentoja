@@ -33,3 +33,5 @@ npm install --save mongoose-unique-validator
 npm install jsonwebtoken --save
 npm test -- tests/bloglist_api.test.js
 npm test -- -t 'blogs are added correctly'
+npm install --save prop-types
+npm install --save-dev eslint-plugin-jest

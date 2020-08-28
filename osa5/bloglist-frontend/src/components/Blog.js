@@ -15,7 +15,7 @@ const Blog = ({ blog, setBlogs, user }) => {
 
 
   const hideWhenVisible = { display: visible ? 'none' : '' }
-  const showWhenVisible = { display: visible ? '' : 'none'}
+  const showWhenVisible = { display: visible ? '' : 'none' }
   const removeButtonStyle = { backgroundColor: 'red' }
 
   const removeButton = () => {
@@ -25,9 +25,9 @@ const Blog = ({ blog, setBlogs, user }) => {
     if (user.username === blog.user.username) {
       return (
         <button style={removeButtonStyle}
-        onClick={removeBlog}>remove</button>
+          onClick={removeBlog}>remove</button>
       )
-    } 
+    }
   }
 
   const toggleVisibility = () => {
@@ -51,32 +51,32 @@ const Blog = ({ blog, setBlogs, user }) => {
   const removeBlog = async () => {
     const result = window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)
     if (result) {
-      console.log(`Removed!`)
+      console.log('Removed!')
       await blogService.remove(blog)
       const updatedBlogs = await blogService.getAll()
       setBlogs(updatedBlogs)
     } else {
-      console.log(`Not removed!`)
+      console.log('Not removed!')
     }
   }
 
 
   return (
-  <div style={blogStyle}>
-    <div style={hideWhenVisible}>
-      {blog.title} {blog.author}
-      <button onClick={toggleVisibility}>view</button>
+    <div style={blogStyle}>
+      <div style={hideWhenVisible}>
+        {blog.title} {blog.author}
+        <button onClick={toggleVisibility}>view</button>
+      </div>
+      <div style={showWhenVisible}>
+        {blog.title}
+        <button onClick={toggleVisibility}>hide</button> <br/>
+        {blog.url} <br/>
+      likes {blog.likes}
+        <button onClick={addLike}>like</button><br/>
+        {blog.author} <br/>
+        {removeButton()}
+      </div>
     </div>
-    <div style={showWhenVisible}>
-      {blog.title}
-      <button onClick={toggleVisibility}>hide</button> <br/>
-      {blog.url} <br/>
-      likes {blog.likes} 
-      <button onClick={addLike}>like</button><br/>
-      {blog.author} <br/>
-      {removeButton()}
-    </div>
-  </div>
   )}
 
 export default Blog
