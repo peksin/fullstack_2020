@@ -27,7 +27,7 @@ const Blog = ({ blog }) => {
       {blog.title}
       <button onClick={toggleVisibility}>hide</button> <br/>
       {blog.url} <br/>
-      likes {blog.likes} <br/>
+      likes {blog.likes} <button>like</button><br/>
       {blog.author}
     </div>
   </div>
