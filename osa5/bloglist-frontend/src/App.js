@@ -86,16 +86,6 @@ const App = () => {
   }
 
 
-  // const handleAddLike = async (blogObject) => {
-  //   const updatedBlog = blogObject
-  //   updatedBlog.likes = blogObject.likes + 1
-  //   await blogService.update(updatedBlog)
-  //   // const response = blogService.update(updatedBlog)
-  //   const updatedBlogs = await blogService.getAll()
-  //   setBlogs( updatedBlogs )
-  // }
-
-
   const loginForm = () => (
     <>
     <h2>log in to application</h2>
@@ -143,7 +133,7 @@ const App = () => {
     {blogForm()}
 
     {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-        <Blog key={blog.id} blog={blog} setBlogs={setBlogs}/>
+        <Blog key={blog.id} blog={blog} setBlogs={setBlogs} user={user}/>
       )}
     </div>
   )
