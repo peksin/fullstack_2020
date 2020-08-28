@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-const Blog = ({ blog }) => {
+import blogService from '../services/blogs'
+
+
+const Blog = ({ blog, setBlogs }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -17,6 +20,20 @@ const Blog = ({ blog }) => {
     setVisible(!visible)
   }
 
+
+  const addLike = () => {
+    const updatedBlog = blog
+    updatedBlog.likes = blog.likes + 1
+    blogService.update(updatedBlog)
+    // const response = blogService.update(updatedBlog)
+
+    // paivita nakyma jotenkin??
+    blogService.getAll().then(blogs => {
+      setBlogs(blogs)
+    })
+  }
+
+
   return (
   <div style={blogStyle}>
     <div style={hideWhenVisible}>
@@ -27,7 +44,8 @@ const Blog = ({ blog }) => {
       {blog.title}
       <button onClick={toggleVisibility}>hide</button> <br/>
       {blog.url} <br/>
-      likes {blog.likes} <button>like</button><br/>
+      likes {blog.likes} 
+      <button onClick={addLike}>like</button><br/>
       {blog.author}
     </div>
   </div>

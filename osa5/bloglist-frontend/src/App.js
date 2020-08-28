@@ -86,6 +86,16 @@ const App = () => {
   }
 
 
+  // const handleAddLike = async (blogObject) => {
+  //   const updatedBlog = blogObject
+  //   updatedBlog.likes = blogObject.likes + 1
+  //   await blogService.update(updatedBlog)
+  //   // const response = blogService.update(updatedBlog)
+  //   const updatedBlogs = await blogService.getAll()
+  //   setBlogs( updatedBlogs )
+  // }
+
+
   const loginForm = () => (
     <>
     <h2>log in to application</h2>
@@ -133,7 +143,7 @@ const App = () => {
     {blogForm()}
 
     {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} setBlogs={setBlogs}/>
       )}
     </div>
   )
