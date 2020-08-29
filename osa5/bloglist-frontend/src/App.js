@@ -74,6 +74,7 @@ const App = () => {
     window.localStorage.clear()
   }
 
+
   const handleCreateBlog = async (blogObject) => {
     const returnedBlog = await blogService
       .create(blogObject)
@@ -85,6 +86,17 @@ const App = () => {
     blogFormRef.current.toggleVisibility()
   }
 
+
+  const addLikeTo = async (id) => {
+    const updatedBlog = blogs.find(n => n.id === id)
+    updatedBlog.likes = updatedBlog.likes + 1
+    blogService.update(updatedBlog)
+    // const response = blogService.update(updatedBlog)
+
+    blogService.getAll().then(blogs => {
+      setBlogs(blogs)
+    })
+  }
 
   const loginForm = () => (
     <>
@@ -133,7 +145,11 @@ const App = () => {
       {blogForm()}
 
       {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
-        <Blog key={blog.id} blog={blog} setBlogs={setBlogs} user={user}/>
+        <Blog key={blog.id} 
+              blog={blog} 
+              addLike={() => addLikeTo(blog.id)}
+              setBlogs={setBlogs} 
+              user={user}/>
       )}
     </div>
   )

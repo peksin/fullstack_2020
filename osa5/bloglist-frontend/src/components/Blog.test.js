@@ -8,6 +8,8 @@ describe('<Blog />', () => {
   let blog
   let user
 
+  const mockLikeHandler = jest.fn()
+
 
   beforeEach(() => {
     user = {
@@ -25,7 +27,7 @@ describe('<Blog />', () => {
     }
 
     component = render(
-      <Blog blog={blog} user={user} />
+      <Blog blog={blog} user={user} addLike={mockLikeHandler}/>
     )
   })
 
@@ -54,6 +56,19 @@ describe('<Blog />', () => {
     fireEvent.click(button)
     const div = component.container.querySelector('.togglableContent')
     expect(div).not.toHaveStyle('display: none')
+  })
+
+  test("event handler is called twice if the like-button is pressed twice", () => {
+
+    // klikataan view-nappia etta saadaan like-nappi nakyviin
+    const viewButton = component.getByText("view")
+    fireEvent.click(viewButton)
+
+    const likeButton = component.getByText("like")
+    fireEvent.click(likeButton)
+    fireEvent.click(likeButton)
+
+    expect(mockLikeHandler.mock.calls).toHaveLength(2)
   })
 })
 
