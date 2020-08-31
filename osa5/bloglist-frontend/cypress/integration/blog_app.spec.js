@@ -35,7 +35,7 @@ describe('Blog app', function() {
     })
   })
 
-  describe.only('When logged in', function() {
+  describe('When logged in', function() {
     beforeEach(function() {
       // kirjaudutaan systeemiin
       cy.get('#username').type('mluukkai')
@@ -53,6 +53,23 @@ describe('Blog app', function() {
       cy.get('#url').type('www.testiurli.ru')
       cy.get('button').contains('create').click()
       cy.get('html').contains('testattava blogi testaava kirjailija')
+    })
+
+    it.only('A blog can be liked', function() {
+      // luodaan blogi tykkaysta varten
+      cy.contains('new blog').click()
+      cy.get('#title').type('testattava blogi')
+      cy.get('#author').type('testaava kirjailija')
+      cy.get('#url').type('www.testiurli.ru')
+      cy.get('button').contains('create').click()
+
+      // klikkaa view-nappia
+      cy.contains('view').click()
+
+      cy.get('#blog-info').contains('likes 0')
+      cy.get('#like-button').click()
+      cy.get('#blog-info').contains('likes 1')
+
     })
   })
 })
