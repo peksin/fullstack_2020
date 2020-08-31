@@ -71,7 +71,7 @@ describe('Blog app', function() {
       cy.get('#blog-info').contains('likes 1')
     })
 
-    it.only('A blog can be removed by a logged in user', function() {
+    it('A blog can be removed by a logged in user', function() {
             // luodaan blogi tykkaysta varten
             cy.contains('new blog').click()
             cy.get('#title').type('testattava blogi')
