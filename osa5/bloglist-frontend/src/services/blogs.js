@@ -14,7 +14,6 @@ const getAll = () => {
 }
 
 const create = async newObject => {
-  // console.log(`${JSON.stringify(newObject)}`)
   const config = {
     headers: { Authorization: token }
   }

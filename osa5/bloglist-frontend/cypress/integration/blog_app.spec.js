@@ -55,7 +55,7 @@ describe('Blog app', function() {
       cy.get('html').contains('testattava blogi testaava kirjailija')
     })
 
-    it.only('A blog can be liked', function() {
+    it('A blog can be liked', function() {
       // luodaan blogi tykkaysta varten
       cy.contains('new blog').click()
       cy.get('#title').type('testattava blogi')
@@ -69,7 +69,20 @@ describe('Blog app', function() {
       cy.get('#blog-info').contains('likes 0')
       cy.get('#like-button').click()
       cy.get('#blog-info').contains('likes 1')
+    })
 
+    it.only('A blog can be removed by a logged in user', function() {
+            // luodaan blogi tykkaysta varten
+            cy.contains('new blog').click()
+            cy.get('#title').type('testattava blogi')
+            cy.get('#author').type('testaava kirjailija')
+            cy.get('#url').type('www.testiurli.ru')
+            cy.get('button').contains('create').click()
+      
+            // klikkaa view-nappia
+            cy.contains('view').click()
+            cy.get('#removeBlogButton').click()
+            cy.get('#bloglist').should('not.contain', 'testattava blogi')
     })
   })
 })

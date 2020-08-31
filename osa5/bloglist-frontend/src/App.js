@@ -83,6 +83,15 @@ const App = () => {
     setTimeout(() => {
       setErrorMessage(null)
     }, 5000)
+
+    // obscuren bugin korjaukseen
+    // post-pyynnon mukana ei tule takaisin muuta kayttajasta kuin
+    // id, ja loput tiedot tulevat vasta seuraavan get-pyynnon mukana
+    // tuosta johtuen remove-nappi ei nay kuin vasta get-pyynnon jalkeen
+    blogService.getAll().then(blogs =>
+      setBlogs( blogs )
+    )
+
     blogFormRef.current.toggleVisibility()
   }
 
@@ -138,7 +147,7 @@ const App = () => {
 
 
   const blogList = () => (
-    <div>
+    <div id='bloglist'>
       <h2>blogs</h2>
       <p>{user.username} logged in
         <button onClick={handleLogout}>logout</button>

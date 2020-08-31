@@ -21,10 +21,12 @@ const Blog = ({ blog, user, setBlogs, addLike }) => {
   const removeButton = () => {
     // backendista ei tule kirjautumisen yhteydessa tietoa kirjautuneen kayttajan id:sta
     // niin tein taman sitten kayttajanimella
-    // sen pitaisi olla myos uniikki niin valiakos tuolla
+    // App.js lisatty ylimaarainen get-pyynto handleCreateBlogiin niin saadaan kaikki
+    // kayttajan tiedot heti kattelyssa kayttoon
+    
     if (user.username === blog.user.username) {
       return (
-        <button style={removeButtonStyle}
+        <button id='removeBlogButton' style={removeButtonStyle}
           onClick={removeBlog}>remove</button>
       )
     }
