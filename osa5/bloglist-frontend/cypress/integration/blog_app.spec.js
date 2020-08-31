@@ -37,10 +37,7 @@ describe('Blog app', function() {
 
   describe('When logged in', function() {
     beforeEach(function() {
-      // kirjaudutaan systeemiin
-      cy.get('#username').type('mluukkai')
-      cy.get('#password').type('salainen')
-      cy.get('#login-button').click()
+      cy.login({ username: 'mluukkai', password: 'salainen' })
     })
 
     it('A blog can be created', function() {
@@ -83,6 +80,19 @@ describe('Blog app', function() {
             cy.contains('view').click()
             cy.get('#removeBlogButton').click()
             cy.get('#bloglist').should('not.contain', 'testattava blogi')
+    })
+
+    it('Blogs are sorted by likes, most liked blog coming first', function() {
+      // luodaan kolme blogia custom-komennolla *krohom*
+      cy.createBlog({title: 'blogi1', author: 'authori', url: 'urli.commercial', likes: '10'})
+      cy.createBlog({title: 'blogi2', author: 'authori', url: 'urli.commercial', likes: '20'})
+      cy.createBlog({title: 'blogi3', author: 'authori', url: 'urli.commercial', likes: '30'})
+      cy.visit('http://localhost:3000')
+
+      // etsitaan kaikki blogit
+      cy.get('#bloglist > #blog-box').eq(0).should('contain', 'blogi3')
+      cy.get('#bloglist > #blog-box').eq(1).should('contain', 'blogi2')
+      cy.get('#bloglist > #blog-box').eq(2).should('contain', 'blogi1')
     })
   })
 })

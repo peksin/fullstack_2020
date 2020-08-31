@@ -63,14 +63,14 @@ const Blog = ({ blog, user, setBlogs, addLike }) => {
 
 
   return (
-    <div style={blogStyle}>
+    <div id='blog-box' style={blogStyle}>
       <div style={hideWhenVisible}>
         {blog.title} {blog.author}
-        <button onClick={toggleVisibility}>view</button>
+        <button id='view-button' onClick={toggleVisibility}>view</button>
       </div>
       <div id='blog-info' style={showWhenVisible} className="togglableContent">
         {blog.title}
-        <button onClick={toggleVisibility}>hide</button> <br/>
+        <button id='hide-button' onClick={toggleVisibility}>hide</button> <br/>
         {blog.url} <br/>
       likes {blog.likes}
         <button id='like-button' onClick={addLike}>like</button><br/>
