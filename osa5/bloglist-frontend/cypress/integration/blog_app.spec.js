@@ -11,7 +11,6 @@ describe('Blog app', function() {
   })
 
   it('Login form is shown', function() {
-    // Tanne tehtavan koodia sit
     cy.contains('log in to application')
   })
 
@@ -33,6 +32,27 @@ describe('Blog app', function() {
         .should('contain', 'wrong username or password')
       
       cy.get('html').should('not.contain', 'mluukkai logged in')
+    })
+  })
+
+  describe.only('When logged in', function() {
+    beforeEach(function() {
+      // kirjaudutaan systeemiin
+      cy.get('#username').type('mluukkai')
+      cy.get('#password').type('salainen')
+      cy.get('#login-button').click()
+    })
+
+    it('A blog can be created', function() {
+      // klikkaa new blog -napista
+      // cy.get('button')
+      cy.contains('new blog').click()
+
+      cy.get('#title').type('testattava blogi')
+      cy.get('#author').type('testaava kirjailija')
+      cy.get('#url').type('www.testiurli.ru')
+      cy.get('button').contains('create').click()
+      cy.get('html').contains('testattava blogi testaava kirjailija')
     })
   })
 })
