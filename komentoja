@@ -40,3 +40,4 @@ CI=true npm test
 CI=true npm test -- --coverage
 npm install --save-dev cypress
 npm install eslint-plugin-cypress --save-dev
+npm install redux --save
