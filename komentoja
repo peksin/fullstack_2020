@@ -41,3 +41,4 @@ CI=true npm test -- --coverage
 npm install --save-dev cypress
 npm install eslint-plugin-cypress --save-dev
 npm install redux --save
+npm install --save-dev deep-freeze
