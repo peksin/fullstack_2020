@@ -70,8 +70,8 @@ describe('unicafe reducer', () => {
     const action = { type: 'OK' }
     const actionZero = { type: 'ZERO' }
     counterReducer(state, action) // OK
-    counterReducer(state, action) // OK
-    const newState = counterReducer(state, actionZero) // ZERO
+    const newState = counterReducer(state, actionZero) // OK
+
 
     expect(newState).toEqual({
       good: 0,
