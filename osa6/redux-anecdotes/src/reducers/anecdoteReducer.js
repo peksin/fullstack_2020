@@ -23,19 +23,35 @@ const anecdoteReducer = (state = initialState, action) => {
   // console.log('state now: ', state)
   // console.log('action', action)
 
-  if (action.type === 'ADD_VOTE') {
-    const id = action.id
-    const anecdoteToChange = state.find(n => n.id === id)
-    const changedAnecdote = {
-      ...anecdoteToChange,
-      votes: anecdoteToChange.votes + 1
-    }
+  switch(action.type) {
+    case 'ADD_VOTE':
+      const id = action.id
+      const anecdoteToChange = state.find(n => n.id === id)
+      const changedAnecdote = {
+        ...anecdoteToChange,
+        votes: anecdoteToChange.votes + 1
+      }
+      return state.map(anecdote =>
+        anecdote.id !== id ? anecdote : changedAnecdote
+        )
+    
+    case 'NEW_ANECDOTE':
+        return [...state, action.data]
 
-    return state.map(anecdote =>
-      anecdote.id !== id ? anecdote : changedAnecdote
-      )
+      default:
+        return state
   }
-  return state
+}
+
+export const createAnecdote = (content) => {
+  return {
+    type: 'NEW_ANECDOTE',
+    data: {
+      content,
+      id: getId(),
+      votes: 0
+    }
+  }
 }
 
 export default anecdoteReducer

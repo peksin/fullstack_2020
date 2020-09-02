@@ -42,3 +42,4 @@ npm install --save-dev cypress
 npm install eslint-plugin-cypress --save-dev
 npm install redux --save
 npm install --save-dev deep-freeze
+npm install --save react-redux
