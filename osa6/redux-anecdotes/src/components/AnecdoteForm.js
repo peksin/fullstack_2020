@@ -4,7 +4,6 @@ import { createAnecdote } from '../reducers/anecdoteReducer'
 
 const AnecdoteForm = (props) => {
   const dispatch = useDispatch()
-  // const anecdotes = useSelector(state => state)
   
   const addAnecdote = (event) => {
     event.preventDefault()
